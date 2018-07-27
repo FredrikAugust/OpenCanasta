@@ -4,7 +4,8 @@ OpenCanasta will be an implementation of the card game canasta -- front- and
 back-end, allowing you to implement your own front-end if you don't like the one
 I end up making.
 
-The canasta version 
+The canasta version used here is the one specified on
+[wikipedia](https://wikipedia.org/wiki/canasta).
 
 ## Specification
 
@@ -17,6 +18,9 @@ managing the routing and authentication with `guardian`. Because of `guardian`
 we'll use `JWT` for authentication, and the front-end will communicate using a
 asynchronous requests -- simple `ajax` requests for logging in/out, finding a
 match et cetera, and WebSockets for the actual game communication.
+
+For testing the back-end I will simply use the built-in testing tools with
+`mix`, as they're more than sufficient.
 
 ## Structures
 
