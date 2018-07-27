@@ -24,8 +24,8 @@ match et cetera, and WebSockets for the actual game communication.
 
 ```
 {
-  hand : Card[]
-  table : Meld[]
+  hand   : Card[]
+  table  : Meld[]
   points : int
 }
 ```
@@ -44,7 +44,7 @@ match et cetera, and WebSockets for the actual game communication.
 {
   player1 : Player
   player2 : Player
-  pile : Card[]
+  pile    : Card[]
 }
 ```
 
