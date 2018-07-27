@@ -1,18 +1,5 @@
 defmodule Canasta do
   @moduledoc """
-  Documentation for Canasta.
+  Top level module for Canasta.
   """
-
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> Canasta.hello
-      :world
-
-  """
-  def hello do
-    :world
-  end
 end
