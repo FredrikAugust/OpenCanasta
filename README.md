@@ -57,7 +57,7 @@ For testing the back-end I will simply use the built-in testing tools with
 ```
 {
   suit : [ hearts | diamonds | clubs | spades ]
-  rank : [ ace | joker | king | queen | (2..10) ]
+  rank : [ ace | joker | king | queen | jack | (2..10) ]
 }
 ```
 
