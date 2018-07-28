@@ -8,45 +8,48 @@ defmodule Canasta.Card do
 
   @doc """
   Check if the suit is hearts, diamonds, clubs or spades.
-
-    iex> Canasta.Card.valid_suit?(%Canasta.Card{suit: :hearts, rank: :queen})
-    true
-
-    iex> Canasta.Card.valid_suit?(%Canasta.Card{suit: :no, rank: 10})
-    false
   """
   def valid_suit?(%Canasta.Card{suit: suit}) when is_atom(suit) do
-    Enum.member?([:hearts, :diamonds, :clubs, :spades], suit)
+    if Enum.member?([:hearts, :diamonds, :clubs, :spades], suit) do
+      :ok
+    else
+      {:error, "When suit is an atom, it must be hearts, diamonds, clubs or spades, not #{suit}."}
+    end
   end
-  def valid_suit?(_), do: false
+  def valid_suit?(_), do: {:error, "Suit must be an atom."}
 
   @doc """
   Check if the rank of the card is either ace, joker, king, queen or jack, or a number between 2 and 10.
-
-    iex> Canasta.Card.valid_rank?(%Canasta.Card{suit: :hearts, rank: :queen})
-    true
-
-    iex> Canasta.Card.valid_rank?(%Canasta.Card{suit: :hearts, rank: 13})
-    false
   """
   def valid_rank?(%Canasta.Card{rank: rank}) when is_atom(rank) do
-    Enum.member?([:ace, :joker, :king, :queen, :jack], rank)
+    if Enum.member?([:ace, :joker, :king, :queen, :jack], rank) do
+      :ok
+    else
+      {:error, "When rank is an atom, it must be ace, joker, king, queen or jack, not #{rank}."}
+    end
   end
   def valid_rank?(%Canasta.Card{rank: rank}) when is_integer(rank) do
-    Enum.member?((2..10), rank)
+    if Enum.member?((2..10), rank) do
+      :ok
+    else
+      {:error, "When rank is an integer, it must be between 2 and 10, not #{rank}."}
+    end
   end
-  def valid_rank?(_), do: false
+  def valid_rank?(_), do: {:error, "Rank must be an atom or integer."}
 
   @doc """
   This will be called on the card passed by the player to ensure the next check checking if the player has the card will not crash due to invalid card type.
-
-    iex> Canasta.Card.valid?(%Canasta.Card{suit: :hearts, rank: :ace})
-    true
-
-    iex> Canasta.Card.valid?(%Canasta.Card{suit: :noway, rank: :jose})
-    false
   """
   def valid?(card) do
-    valid_suit?(card) && valid_rank?(card)
+    case {valid_suit?(card), valid_rank?(card)} do
+      {:ok, rank_error} ->
+        rank_error
+      {suit_error, :ok} ->
+        suit_error
+      {{_, suit_error}, {_, rank_error}} ->
+        {:error, [suit_error, rank_error]}
+      _ ->
+        :ok
+    end
   end
 end
