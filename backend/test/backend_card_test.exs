@@ -55,4 +55,61 @@ defmodule CanastaCardTest do
       {:error, _} = Card.valid?(%Card{suit: :hearts, rank: 13})
     end
   end
+
+  describe "value/1" do
+    test "red threes" do
+      assert Card.value(%Card{suit: :diamonds, rank: 3}) == 100
+      assert Card.value(%Card{suit: :hearts, rank: 3}) == 100
+    end
+
+    test "black threes" do
+      assert Card.value(%Card{suit: :clubs, rank: 3}) == 5
+      assert Card.value(%Card{suit: :spades, rank: 3}) == 5
+    end
+
+    test "4-7" do
+      Enum.each((4..7), fn(i) -> 
+        assert Card.value(%Card{suit: :clubs, rank: i}) == 5
+        assert Card.value(%Card{suit: :spades, rank: i}) == 5
+        assert Card.value(%Card{suit: :hearts, rank: i}) == 5
+        assert Card.value(%Card{suit: :diamonds, rank: i}) == 5
+      end)
+    end
+
+    test "8-10" do
+      Enum.each((8..10), fn(i) -> 
+        assert Card.value(%Card{suit: :clubs, rank: i}) == 10
+        assert Card.value(%Card{suit: :spades, rank: i}) == 10
+        assert Card.value(%Card{suit: :hearts, rank: i}) == 10
+        assert Card.value(%Card{suit: :diamonds, rank: i}) == 10
+      end)
+    end
+
+    test "face cards" do
+      Enum.each([:jack, :queen, :king], fn(i) -> 
+        assert Card.value(%Card{suit: :clubs, rank: i}) == 10
+        assert Card.value(%Card{suit: :spades, rank: i}) == 10
+        assert Card.value(%Card{suit: :hearts, rank: i}) == 10
+        assert Card.value(%Card{suit: :diamonds, rank: i}) == 10
+      end)
+    end
+
+    test "2" do
+      assert Card.value(%Card{suit: :clubs, rank: 2}) == 20
+      assert Card.value(%Card{suit: :spades, rank: 2}) == 20
+      assert Card.value(%Card{suit: :hearts, rank: 2}) == 20
+      assert Card.value(%Card{suit: :diamonds, rank: 2}) == 20
+    end
+
+    test "ace" do
+      assert Card.value(%Card{suit: :clubs, rank: :ace}) == 20
+      assert Card.value(%Card{suit: :spades, rank: :ace}) == 20
+      assert Card.value(%Card{suit: :hearts, rank: :ace}) == 20
+      assert Card.value(%Card{suit: :diamonds, rank: :ace}) == 20
+    end
+
+    test "joker" do
+      assert Card.value(%Card{suit: nil, rank: :joker}) == 50
+    end
+  end
 end

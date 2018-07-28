@@ -1,4 +1,6 @@
 defmodule Canasta.Card do
+  alias Canasta.Card
+
   @moduledoc """
   Represents a card.
   """
@@ -50,6 +52,34 @@ defmodule Canasta.Card do
         {:error, [suit_error, rank_error]}
       _ ->
         :ok
+    end
+  end
+
+  @doc """
+  Value of the card.
+
+  Red three = 100
+  3-7    = 5
+  8-King = 10
+  2, Ace = 20
+  Joker  = 50
+  """
+  def value(%Card{suit: suit, rank: rank}) do
+    case {suit, rank} do
+      {suit, 3} when suit in [:diamonds, :hearts] ->
+        100
+      {_, rank} when is_integer(rank) and (rank in 8..10) ->
+        10
+      {_, :ace} ->
+        20
+      {_, :joker} ->
+        50
+      {_, rank} when is_atom(rank) ->
+        10
+      {_, 2} ->
+        20
+      _ ->
+        5
     end
   end
 end
