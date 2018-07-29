@@ -102,9 +102,6 @@ defmodule Canasta.Card do
     if card in wild_cards(final_round), do: :wild, else: :natural
   end
 
-  @doc """
-  Returns all wild cards. See Canasta.Card.natural_cards/0. Remember that on the last round, black threes will count as natural cards.
-  """
   defp wild_cards(false) do# {{{
     [
       %Card{suit: :hearts, rank: 2},
