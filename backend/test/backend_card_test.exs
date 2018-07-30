@@ -113,7 +113,7 @@ defmodule CanastaCardTest do
     end# }}}
   end# }}}
 
-  describe "card type" do# {{{
+  describe "card type/2" do# {{{
     test "natural cards are natural" do# {{{
       assert Card.card_type(%Card{suit: :hearts, rank: 4}) == :natural
     end# }}}
@@ -125,6 +125,12 @@ defmodule CanastaCardTest do
     test "black threes will be natural in last meld" do# {{{
       assert Card.card_type(%Card{suit: :spades, rank: 3}, true) == :natural
       assert Card.card_type(%Card{suit: :clubs, rank: 3}, true) == :natural
+    end# }}}
+  end# }}}
+
+  describe "new_deck/0" do# {{{
+    test "108 cards" do# {{{
+      assert length(Card.new_deck) == 108
     end# }}}
   end# }}}
 end

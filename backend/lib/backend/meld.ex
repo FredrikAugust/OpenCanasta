@@ -28,7 +28,7 @@ defmodule Canasta.Meld do
   end
 
   def meld_score(meld) do
-    Map.get(meld, :cards)
+    meld.cards
     |> Enum.map(&Canasta.Card.value/1)
     |> Enum.reduce(&+/2)
   end
@@ -37,8 +37,8 @@ defmodule Canasta.Meld do
   Returns the type of canasta (:natural, :dirty), or :no_canasta.
   """
   def canasta?(meld) do
-    natural_cards = Enum.filter(Map.get(meld, :cards), &(Canasta.Card.card_type(&1) == :natural))
-    wild_cards = Enum.filter(Map.get(meld, :cards), &(Canasta.Card.card_type(&1) == :wild))
+    natural_cards = Enum.filter(meld.cards, &(Canasta.Card.card_type(&1) == :natural))
+    wild_cards = Enum.filter(meld.cards, &(Canasta.Card.card_type(&1) == :wild))
 
     cond do
       natural_cards >= 7 and wild_cards == 0 ->
@@ -64,7 +64,7 @@ defmodule Canasta.Meld do
 
   defp validate_purity(cards, final_round) do# {{{
     num_uniques = Enum.filter(cards, &(Canasta.Card.card_type(&1, final_round) == :natural))
-                  |> Enum.map(&(Map.get(&1, :rank)))
+                  |> Enum.map(&(&1.rank))
                   |> Enum.uniq()
                   |> length
     if num_uniques == 1, do: :ok, else: {:error, "You must have one type of natural card in a meld."}

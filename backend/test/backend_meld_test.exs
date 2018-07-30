@@ -49,26 +49,26 @@ defmodule CanastaMeldTest do
 
   describe "create_meld/3" do# {{{
     test "validates natural", state do# {{{
-      assert state.natural == Meld.create_meld(Map.get(state.natural, :cards))
+      assert state.natural == Meld.create_meld(state.natural.cards)
     end# }}}
 
     test "validates dirty", state  do# {{{
-      assert state.dirty == Meld.create_meld(Map.get(state.dirty, :cards))
+      assert state.dirty == Meld.create_meld(state.dirty.cards)
     end# }}}
 
     test "validate_ratio/2", state do# {{{
-      assert {:error, ["You must have more natural cards than wild cards."]} == Meld.create_meld(Map.get(state.invalid_ratio, :cards))
-      assert {:error, ["You must have one type of natural card in a meld.", "You must have more natural cards than wild cards."]} == Meld.create_meld(Map.get(state.invalid_final_meld, :cards), true)
-      assert state.final_meld == Meld.create_meld(Map.get(state.final_meld, :cards), true)
-      assert {:error, ["You must have one type of natural card in a meld.", "You must have more natural cards than wild cards."]} == Meld.create_meld(Map.get(state.final_meld, :cards))
+      assert {:error, ["You must have more natural cards than wild cards."]} == Meld.create_meld(state.invalid_ratio.cards)
+      assert {:error, ["You must have one type of natural card in a meld.", "You must have more natural cards than wild cards."]} == Meld.create_meld(state.invalid_final_meld.cards, true)
+      assert state.final_meld == Meld.create_meld(state.final_meld.cards, true)
+      assert {:error, ["You must have one type of natural card in a meld.", "You must have more natural cards than wild cards."]} == Meld.create_meld(state.final_meld.cards)
     end# }}}
 
     test "validate_purity/1", state do# {{{
-      assert {:error, ["You must have one type of natural card in a meld."]} == Meld.create_meld(Map.get(state.invalid_purity, :cards))
+      assert {:error, ["You must have one type of natural card in a meld."]} == Meld.create_meld(state.invalid_purity.cards)
     end# }}}
 
     test "validate_number_of_cards/1", state do# {{{
-      assert {:error, ["You need at least 3 cards in a meld."]} == Meld.create_meld(Map.get(state.invalid_card_number, :cards))
+      assert {:error, ["You need at least 3 cards in a meld."]} == Meld.create_meld(state.invalid_card_number.cards)
     end# }}}
   end# }}}
 
