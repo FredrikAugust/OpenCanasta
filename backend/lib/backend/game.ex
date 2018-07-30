@@ -11,7 +11,7 @@ defmodule Canasta.Game do
   Creates a new game.
   """
   def create do
-    deck = Canasta.Card.new_deck
+    deck = Canasta.Card.new_deck()
 
     %Canasta.Game{
       player_one: %Canasta.Player{
@@ -28,7 +28,8 @@ defmodule Canasta.Game do
       },
       pile: Enum.slice(deck, 22..-1),
       player_turn: :player_one
-    } |> start
+    }
+    |> start
   end
 
   @doc """
@@ -47,7 +48,7 @@ defmodule Canasta.Game do
   """
   def put_first_card(%Canasta.Game{pile: [first_card | _] = pile} = game) do
     if Canasta.Card.card_type(first_card) == :wild do
-      put_first_card %{game | pile: Enum.shuffle(pile)}
+      put_first_card(%{game | pile: Enum.shuffle(pile)})
     else
       %{game | table: [first_card], pile: Enum.slice(pile, 1..-1)}
     end
@@ -58,22 +59,31 @@ defmodule Canasta.Game do
   and fixes that.
   """
   def give_card(%Canasta.Game{pile: [first_card | _] = pile} = game, player) do
-    %{Map.update!(game, player, &(%{ &1 | hand: [first_card | &1.hand] })) | pile: Enum.slice(pile, 1..-1)} |> handle_red_three(player)
+    %{
+      Map.update!(game, player, &%{&1 | hand: [first_card | &1.hand]})
+      | pile: Enum.slice(pile, 1..-1)
+    }
+    |> handle_red_three(player)
   end
 
   @doc """
   Handles eventual red threes on hand.
   """
-  def handle_red_three(game, player) do# {{{
+  # {{{
+  def handle_red_three(game, player) do
     player_struct = Map.get(game, player)
+
     case Canasta.Player.has_red_three?(player_struct) do
       nil ->
         game
+
       i ->
         game
-        |> Map.update!(player, &(Canasta.Player.deploy_red_three(&1, i)))
+        |> Map.update!(player, &Canasta.Player.deploy_red_three(&1, i))
         |> Canasta.Game.give_card(:player_one)
         |> handle_red_three(player)
     end
-  end# }}}
+  end
+
+  # }}}
 end

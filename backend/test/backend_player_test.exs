@@ -2,7 +2,7 @@ defmodule CanastaPlayerTest do
   use ExUnit.Case
   alias Canasta.Card
 
-  setup_all do# {{{
+  setup_all do
     {:ok, with_red_three: %Canasta.Player{hand: [
       %Card{suit: :hearts, rank: 3},
       %Card{suit: :hearts, rank: 6},
@@ -30,23 +30,23 @@ defmodule CanastaPlayerTest do
         %Card{suit: :hearts, rank: 6},
       ], table: [], points: 0, red_threes: []}
     }
-  end# }}}
+  end
 
-  describe "has_red_three?/1" do# {{{
-    test "detects if the player has a red three", state do# {{{
+  describe "has_red_three?/1" do
+    test "detects if the player has a red three", state do
       assert Canasta.Player.has_red_three?(state.with_red_three) == 0
-    end# }}}
+    end
 
-    test "detects if the player does not have a red three", state do# {{{
+    test "detects if the player does not have a red three", state do
       assert Canasta.Player.has_red_three?(state.without_red_three) == nil
-    end# }}}
-  end# }}}
+    end
+  end
 
-  describe "deploy_red_three/2" do# {{{
-    test "properly puts the red three in the array and removes from hand", state do# {{{
+  describe "deploy_red_three/2" do
+    test "properly puts the red three in the array and removes from hand", state do
       removed_three = Canasta.Player.deploy_red_three(state.with_red_three, 0)
       assert length(removed_three.hand) == 10
       assert length(removed_three.red_threes) == 1
-    end# }}}
-  end# }}}
+    end
+  end
 end
