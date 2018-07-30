@@ -130,7 +130,7 @@ defmodule CanastaCardTest do
 
   describe "new_deck/0" do
     test "108 cards" do
-      assert length(Card.new_deck) == 108
+      assert length(Card.new_deck()) == 108
     end
   end
 end

@@ -50,19 +50,24 @@ defmodule Canasta.Game do
   def play(game, %{action: :draw}) do
     nil
   end
+
   def play(game, %{action: :play_card, card: card}) do
     nil
   end
+
   def play(game, %{action: :meld, melds: [meld | meld_tail]}) do
     nil
   end
+
   def play(game, %{action: :meld, melds: [meld]}) do
     nil
   end
+
   def play(game, %{action: :meld_inclusive, melds: [meld | meld_tail]}) do
     # when you're taking the cards "on table"
     nil
   end
+
   def play(game, %{action: :meld_inclusive, melds: [meld]}) do
     nil
   end
