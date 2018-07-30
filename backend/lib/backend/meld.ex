@@ -53,14 +53,10 @@ defmodule Canasta.Meld do
     end
   end
 
-  # {{{
   defp validate_number_of_cards(cards) do
     if length(cards) < 3, do: {:error, "You need at least 3 cards in a meld."}, else: :ok
   end
 
-  # }}}
-
-  # {{{
   defp validate_ratio(cards, final_round) do
     if Enum.count(cards, &(Canasta.Card.card_type(&1, final_round) == :natural)) >=
          length(cards) / 2 do
@@ -70,9 +66,6 @@ defmodule Canasta.Meld do
     end
   end
 
-  # }}}
-
-  # {{{
   defp validate_purity(cards, final_round) do
     num_uniques =
       Enum.filter(cards, &(Canasta.Card.card_type(&1, final_round) == :natural))
@@ -84,6 +77,4 @@ defmodule Canasta.Meld do
       do: :ok,
       else: {:error, "You must have one type of natural card in a meld."}
   end
-
-  # }}}
 end

@@ -60,7 +60,14 @@ defmodule Canasta.Game do
   """
   def give_card(%Canasta.Game{pile: [first_card | _] = pile} = game, player) do
     %{
-      Map.update!(game, player, &%{&1 | hand: [first_card | &1.hand]})
+      Map.update!(
+        game,
+        player,
+        &%{
+          &1
+          | hand: [first_card | &1.hand]
+        }
+      )
       | pile: Enum.slice(pile, 1..-1)
     }
     |> handle_red_three(player)
@@ -69,7 +76,6 @@ defmodule Canasta.Game do
   @doc """
   Handles eventual red threes on hand.
   """
-  # {{{
   def handle_red_three(game, player) do
     player_struct = Map.get(game, player)
 
@@ -84,6 +90,4 @@ defmodule Canasta.Game do
         |> handle_red_three(player)
     end
   end
-
-  # }}}
 end

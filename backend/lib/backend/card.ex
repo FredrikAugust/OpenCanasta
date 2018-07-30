@@ -105,7 +105,6 @@ defmodule Canasta.Card do
   @doc """
   Generates a new french deck (two decks) and shuffles it.
   """
-  # {{{
   def new_deck do
     [
       %Card{suit: :hearts, rank: 2},
@@ -220,8 +219,6 @@ defmodule Canasta.Card do
     |> Enum.shuffle()
   end
 
-  # }}}
-
   @doc """
   Is it a red three?
   """
@@ -230,7 +227,6 @@ defmodule Canasta.Card do
   end
 
   # argument is whether or not to include black threes
-  # {{{
   defp wild_cards(false) do
     [
       %Card{suit: :hearts, rank: 2},
@@ -245,9 +241,7 @@ defmodule Canasta.Card do
     ]
   end
 
-  # }}}
   # argument is whether or not to include black threes
-  # {{{
   defp wild_cards(true) do
     [
       %Card{suit: :hearts, rank: 2},
@@ -259,6 +253,4 @@ defmodule Canasta.Card do
       %Card{suit: nil, rank: :joker}
     ]
   end
-
-  # }}}
 end
