@@ -4,8 +4,8 @@ defmodule Canasta.Game do
   with.
   """
 
-  @enforce_keys [:player_one, :player_two, :pile, :player_one_turn]
-  defstruct [:player_one, :player_two, :pile, :player_one_turn]
+  @enforce_keys [:player_one, :player_two, :pile, :player_turn]
+  defstruct [:player_one, :player_two, :pile, :player_turn, :table]
 
   @doc """
   Creates a new game.
@@ -31,37 +31,52 @@ defmodule Canasta.Game do
       player_one: player_one,
       player_two: player_two,
       pile: Enum.slice(deck, 22..-1),
-      player_one_turn: true
+      player_turn: :player_one
     }
   end
 
   @doc """
-  Starts the game; check if red threes on hand, give card to the one beginning.
-  If one or both of the players have a red three, fix the first one detected,
-  and "restart". This way it will recurse until all have been distributed.
+  Starts the game. Puts a card on the table, and gives a card to the starting
+  player.
   """
-  def start(%Canasta.Game{player_one: p_one, player_two: p_two, pile: pile, player_one_turn: p_one_turn} = game) do
-    case {Canasta.Player.has_red_three?(p_one), Canasta.Player.has_red_three?(p_two)} do
-      {i, nil} ->
-        %{game | player_one: Canasta.Player.deploy_red_three(p_one, i)}
-        |> Canasta.Game.give_card(:player_one)
-        |> start
-      {nil, i} ->
-        %{game | player_two: Canasta.Player.deploy_red_three(p_two, i)}
-        |> Canasta.Game.give_card(:player_two)
-        |> start
-      {i, j} ->
-        %{game | player_one: Canasta.Player.deploy_red_three(p_one, i), player_two: Canasta.Player.deploy_red_three(p_two, j)}
-        |> Canasta.Game.give_card(:player_one)
-        |> Canasta.Game.give_card(:player_two)
-        |> start
+  def start(game) do
+    game
+    |> put_first_card()
+    |> give_card(game.player_turn)
+  end
+
+  @doc """
+  Put the first card on the table, can not be a wild card.
+  """
+  def put_first_card(%Canasta.Game{pile: [first_card | _] = pile} = game) do
+    if Canasta.Card.card_type(first_card) == :wild do
+      put_first_card %{game | pile: Enum.shuffle(pile)}
+    else
+      %{game | table: [first_card], pile: Enum.slice(pile, 1..-1)}
     end
   end
 
   @doc """
-  Give a card to player. Don't touch, fragile code.
+  Give a card to player. Don't touch, fragile code. Also checks for red three
+  and fixes that.
   """
   def give_card(%Canasta.Game{pile: [first_card | _] = pile} = game, player) do
-    %{Map.update!(game, player, &(%{ &1 | hand: [first_card | &1.hand] })) | pile: Enum.slice(pile, 1..-1)}
+    %{Map.update!(game, player, &(%{ &1 | hand: [first_card | &1.hand] })) | pile: Enum.slice(pile, 1..-1)} |> handle_red_three(player)
   end
+
+  @doc """
+  Handles eventual red threes on hand.
+  """
+  def handle_red_three(game, player) do# {{{
+    player_struct = Map.get(game, player)
+    case Canasta.Player.has_red_three?(player_struct) do
+      nil ->
+        game
+      i ->
+        game
+        |> Map.update!(player, &(Canasta.Player.deploy_red_three(&1, i)))
+        |> Canasta.Game.give_card(:player_one)
+        |> handle_red_three(player)
+    end
+  end# }}}
 end

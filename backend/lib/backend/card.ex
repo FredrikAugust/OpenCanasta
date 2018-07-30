@@ -218,6 +218,13 @@ defmodule Canasta.Card do
     ] |> Enum.shuffle()
   end# }}}
 
+  @doc """
+  Is it a red three?
+  """
+  def is_red_three?(%Card{suit: suit, rank: rank}) do
+    rank == 3 && (suit == :hearts || suit == :diamonds)
+  end
+
   defp wild_cards(false) do# {{{
     [
       %Card{suit: :hearts, rank: 2},

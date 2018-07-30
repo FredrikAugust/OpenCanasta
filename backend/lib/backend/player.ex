@@ -12,7 +12,7 @@ defmodule Canasta.Player do
   not, nil.
   """
   def has_red_three?(%Canasta.Player{hand: hand}) do
-    Enum.find_index(hand, &(&1 == %Canasta.Card{suit: :hearts, rank: 3} || &1 == %Canasta.Card{suit: :diamonds, rank: 3}))
+    Enum.find_index(hand, &Canasta.Card.is_red_three?/1)
   end
 
   @doc """
