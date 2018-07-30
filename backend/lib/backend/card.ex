@@ -225,6 +225,7 @@ defmodule Canasta.Card do
     rank == 3 && (suit == :hearts || suit == :diamonds)
   end
 
+  # argument is whether or not to include black threes
   defp wild_cards(false) do# {{{
     [
       %Card{suit: :hearts, rank: 2},
@@ -238,6 +239,7 @@ defmodule Canasta.Card do
       %Card{suit: nil, rank: :joker},
     ]
   end# }}}
+  # argument is whether or not to include black threes
   defp wild_cards(true) do# {{{
     [
       %Card{suit: :hearts, rank: 2},
