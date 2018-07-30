@@ -51,7 +51,7 @@ defmodule CanastaGameTest do
     test "creates a new game and distributes cards" do# {{{
       game = Canasta.Game.create
 
-      assert length(game.player_one.hand) + length(game.player_two.hand) + length(game.pile) + length(game.table) == 108
+      assert length(game.player_one.red_threes) + length(game.player_two.red_threes) + length(game.player_one.hand) + length(game.player_two.hand) + length(game.pile) + length(game.table) == 108
     end# }}}
 
     test "put card on table" do# {{{
@@ -87,7 +87,7 @@ defmodule CanastaGameTest do
   describe "put_first_card/1" do# {{{
     test "puts the first card down if natural", state do# {{{
       putted = Canasta.Game.put_first_card(state.game)
-      assert putted.table == [List.first(state.game.pile)]
+      assert putted.table == [hd(state.game.pile)]
     end# }}}
 
     test "shuffles if wild", state do# {{{
@@ -105,7 +105,7 @@ defmodule CanastaGameTest do
 
       putted = Canasta.Game.put_first_card(updated_state)
 
-      assert putted.table != [List.first(pile)]
+      assert putted.table != [hd(pile)]
     end# }}}
 
     test "removed one card from pile", state do# {{{

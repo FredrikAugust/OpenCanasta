@@ -42,7 +42,8 @@ defmodule Canasta.Game do
   end
 
   @doc """
-  Put the first card on the table, can not be a wild card.
+  Put the first card on the table, can not be a wild card. Will shuffle and try
+  again if card is wild.
   """
   def put_first_card(%Canasta.Game{pile: [first_card | _] = pile} = game) do
     if Canasta.Card.card_type(first_card) == :wild do
