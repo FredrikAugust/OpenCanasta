@@ -42,6 +42,31 @@ defmodule Canasta.Game do
     |> give_card(game.player_turn)
   end
 
+  # TODO: implement play function. here we can overload the function to handle
+  # melding and normal playing
+  @doc """
+  TODO: add documentation of play function
+  """
+  def play(game, %{action: :draw}) do
+    nil
+  end
+  def play(game, %{action: :play_card, card: card}) do
+    nil
+  end
+  def play(game, %{action: :meld, melds: [meld | meld_tail]}) do
+    nil
+  end
+  def play(game, %{action: :meld, melds: [meld]}) do
+    nil
+  end
+  def play(game, %{action: :meld_inclusive, melds: [meld | meld_tail]}) do
+    # when you're taking the cards "on table"
+    nil
+  end
+  def play(game, %{action: :meld_inclusive, melds: [meld]}) do
+    nil
+  end
+
   @doc """
   Put the first card on the table, can not be a wild card. Will shuffle and try
   again if card is wild.
