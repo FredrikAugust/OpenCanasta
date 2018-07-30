@@ -13,26 +13,22 @@ defmodule Canasta.Game do
   def create do
     deck = Canasta.Card.new_deck
 
-    player_one = %Canasta.Player{
-      hand: Enum.slice(deck, 0..10),
-      table: [],
-      points: 0,
-      red_threes: []
-    }
-
-    player_two = %Canasta.Player{
-      hand: Enum.slice(deck, 11..21),
-      table: [],
-      points: 0,
-      red_threes: []
-    }
-
     %Canasta.Game{
-      player_one: player_one,
-      player_two: player_two,
+      player_one: %Canasta.Player{
+        hand: Enum.slice(deck, 11..21),
+        table: [],
+        points: 0,
+        red_threes: []
+      },
+      player_two: %Canasta.Player{
+        hand: Enum.slice(deck, 0..10),
+        table: [],
+        points: 0,
+        red_threes: []
+      },
       pile: Enum.slice(deck, 22..-1),
       player_turn: :player_one
-    }
+    } |> start
   end
 
   @doc """

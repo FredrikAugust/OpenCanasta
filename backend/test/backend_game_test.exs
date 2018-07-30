@@ -51,9 +51,22 @@ defmodule CanastaGameTest do
     test "creates a new game and distributes cards" do# {{{
       game = Canasta.Game.create
 
-      assert length(game.player_one.hand) == 11
-      assert length(game.player_two.hand) == 11
-      assert length(game.player_one.hand) + length(game.player_two.hand) + length(game.pile) == 108
+      assert length(game.player_one.hand) + length(game.player_two.hand) + length(game.pile) + length(game.table) == 108
+    end# }}}
+
+    test "put card on table" do# {{{
+      started = Canasta.Game.create
+      assert length(started.table) == 1
+    end# }}}
+
+    test "remove one card from pile" do# {{{
+      started = Canasta.Game.create
+      assert length(started.pile) <= 86
+    end# }}}
+
+    test "give a card to starting player" do# {{{
+      started = Canasta.Game.create
+      assert length(started.player_one.hand) == 12
     end# }}}
   end# }}}
 
@@ -68,23 +81,6 @@ defmodule CanastaGameTest do
       assert length(handled_threes.player_one.red_threes) == 2
       assert length(handled_threes.player_two.red_threes) == 1
       assert length(state.game.pile) - length(handled_threes.pile) == 3
-    end# }}}
-  end# }}}
-
-  describe "start/1" do# {{{
-    test "put card on table", state do# {{{
-      started = Canasta.Game.start(state.game)
-      assert length(started.table) == 1
-    end# }}}
-
-    test "remove one card from pile", state do# {{{
-      started = Canasta.Game.start(state.game)
-      assert length(started.pile) < length(state.game.pile)
-    end# }}}
-
-    test "give a card to starting player", state do# {{{
-      started = Canasta.Game.start(state.game)
-      assert length(started.player_one.hand) == 12
     end# }}}
   end# }}}
 

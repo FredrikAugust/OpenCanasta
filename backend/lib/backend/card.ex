@@ -159,8 +159,8 @@ defmodule Canasta.Card do
       %Card{suit: :diamonds, rank: :ace},
       %Card{suit: :clubs, rank: :ace},
       %Card{suit: :spades, rank: :ace},
-      %Card{suit: :hearts, rank: :joker},
-      %Card{suit: :hearts, rank: :joker},
+      %Card{suit: nil, rank: :joker},
+      %Card{suit: nil, rank: :joker},
       %Card{suit: :hearts, rank: 2},
       %Card{suit: :diamonds, rank: 2},
       %Card{suit: :clubs, rank: 2},
@@ -213,8 +213,8 @@ defmodule Canasta.Card do
       %Card{suit: :diamonds, rank: :ace},
       %Card{suit: :clubs, rank: :ace},
       %Card{suit: :spades, rank: :ace},
-      %Card{suit: :hearts, rank: :joker},
-      %Card{suit: :hearts, rank: :joker}
+      %Card{suit: nil, rank: :joker},
+      %Card{suit: nil, rank: :joker}
     ] |> Enum.shuffle()
   end# }}}
 
