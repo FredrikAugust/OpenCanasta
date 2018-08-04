@@ -1,4 +1,4 @@
 defmodule CanastaTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
   doctest Canasta
 end

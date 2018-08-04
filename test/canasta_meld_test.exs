@@ -1,5 +1,5 @@
 defmodule CanastaMeldTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
   alias Canasta.Meld
   alias Canasta.Card
 

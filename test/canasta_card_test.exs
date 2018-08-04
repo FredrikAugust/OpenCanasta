@@ -1,5 +1,5 @@
 defmodule CanastaCardTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
   alias Canasta.Card
 
   describe "valid_suit?/1" do

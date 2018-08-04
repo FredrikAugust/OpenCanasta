@@ -1,5 +1,5 @@
 defmodule CanastaGameTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
   alias Canasta.Card
 
   setup_all do
