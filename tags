@@ -71,7 +71,7 @@ validate_purity	lib/backend/meld.ex	/^  defp validate_purity(cards, final_round)
 validate_purity	test/backend_meld_test.exs	/^    test "validate_purity\/1", state do$/;"	t
 validate_ratio	lib/backend/meld.ex	/^  defp validate_ratio(cards, final_round) do$/;"	f
 validate_ratio	test/backend_meld_test.exs	/^    test "validate_ratio\/2", state do$/;"	t
-validates dirty	test/backend_meld_test.exs	/^    test "validates dirty", state  do$/;"	t
+validates dirty	test/backend_meld_test.exs	/^    test "validates dirty", state do$/;"	t
 validates invalid card	test/backend_card_test.exs	/^    test "validates invalid card" do$/;"	t
 validates invalid card only rank	test/backend_card_test.exs	/^    test "validates invalid card only rank" do$/;"	t
 validates invalid card only suit	test/backend_card_test.exs	/^    test "validates invalid card only suit" do$/;"	t
