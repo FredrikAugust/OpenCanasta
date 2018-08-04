@@ -5,87 +5,94 @@
 !_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
 !_TAG_PROGRAM_VERSION	0.0.0	/09861b6e/
+Available actions	README.md	/^### Available actions$/;"	S
 Canasta	README.md	/^# Canasta$/;"	c
-Canasta	lib/backend.ex	/^defmodule Canasta do$/;"	m
-CanastaCardTest	test/backend_card_test.exs	/^defmodule CanastaCardTest do$/;"	m
-CanastaGameTest	test/backend_game_test.exs	/^defmodule CanastaGameTest do$/;"	m
-CanastaMeldTest	test/backend_meld_test.exs	/^defmodule CanastaMeldTest do$/;"	m
-CanastaPlayerTest	test/backend_player_test.exs	/^defmodule CanastaPlayerTest do$/;"	m
-CanastaTest	test/backend_test.exs	/^defmodule CanastaTest do$/;"	m
-Card	lib/backend/card.ex	/^defmodule Canasta.Card do$/;"	m
-Game	lib/backend/game.ex	/^defmodule Canasta.Game do$/;"	m
+Canasta	lib/canasta.ex	/^defmodule Canasta do$/;"	m
+CanastaCardTest	test/canasta_card_test.exs	/^defmodule CanastaCardTest do$/;"	m
+CanastaGameTest	test/canasta_game_test.exs	/^defmodule CanastaGameTest do$/;"	m
+CanastaMeldTest	test/canasta_meld_test.exs	/^defmodule CanastaMeldTest do$/;"	m
+CanastaPlayerTest	test/canasta_player_test.exs	/^defmodule CanastaPlayerTest do$/;"	m
+CanastaTest	test/canasta_test.exs	/^defmodule CanastaTest do$/;"	m
+Card	lib/canasta/card.ex	/^defmodule Canasta.Card do$/;"	m
+Draw	README.md	/^#### Draw$/;"	t
+Game	lib/canasta/game.ex	/^defmodule Canasta.Game do$/;"	m
 Installation	README.md	/^## Installation$/;"	s
-Meld	lib/backend/meld.ex	/^defmodule Canasta.Meld do$/;"	m
+Meld	README.md	/^#### Meld$/;"	t
+Meld	lib/canasta/meld.ex	/^defmodule Canasta.Meld do$/;"	m
 MixProject	mix.exs	/^defmodule Canasta.MixProject do$/;"	m
-Player	lib/backend/player.ex	/^defmodule Canasta.Player do$/;"	m
-ace	test/backend_card_test.exs	/^    test "ace" do$/;"	t
+Play a card	README.md	/^#### Play a card$/;"	t
+Player	lib/canasta/player.ex	/^defmodule Canasta.Player do$/;"	m
+Testing	README.md	/^## Testing$/;"	s
+Usage	README.md	/^## Usage$/;"	s
+ace	test/canasta_card_test.exs	/^    test "ace" do$/;"	t
 application	mix.exs	/^  def application do$/;"	f
-black threes	test/backend_card_test.exs	/^    test "black threes" do$/;"	t
-black threes will be natural in last meld	test/backend_card_test.exs	/^    test "black threes will be natural in last meld" do$/;"	t
-calculates the score of a meld	test/backend_meld_test.exs	/^    test "calculates the score of a meld", state do$/;"	t
-canasta?	lib/backend/meld.ex	/^  def canasta?(meld) do$/;"	f
-card_type	lib/backend/card.ex	/^  def card_type(card, final_round \\\\ false) do$/;"	f
-create	lib/backend/game.ex	/^  def create do$/;"	f
-create_meld	lib/backend/meld.ex	/^  def create_meld(cards, final_round \\\\ false) do$/;"	f
-creates a new game and distributes cards	test/backend_game_test.exs	/^    test "creates a new game and distributes cards" do$/;"	t
-deploy_red_three	lib/backend/player.ex	/^  def deploy_red_three(player, index) do$/;"	f
+black threes	test/canasta_card_test.exs	/^    test "black threes" do$/;"	t
+black threes will be natural in last meld	test/canasta_card_test.exs	/^    test "black threes will be natural in last meld" do$/;"	t
+calculates the score of a meld	test/canasta_meld_test.exs	/^    test "calculates the score of a meld", state do$/;"	t
+canasta?	lib/canasta/meld.ex	/^  def canasta?(meld) do$/;"	f
+card_type	lib/canasta/card.ex	/^  def card_type(card, final_round \\\\ false) do$/;"	f
+create	lib/canasta/game.ex	/^  def create do$/;"	f
+create_meld	lib/canasta/meld.ex	/^  def create_meld(cards, final_round \\\\ false) do$/;"	f
+creates a new game and distributes cards	test/canasta_game_test.exs	/^    test "creates a new game and distributes cards" do$/;"	t
+deal_card	lib/canasta/game.ex	/^  def deal_card(%Canasta.Game{pulled: false, player_turn: player_turn} = game) do$/;"	f
+deal_card	lib/canasta/game.ex	/^  def deal_card(%Canasta.Game{pulled: true} = game) do$/;"	f
+deploy_red_three	lib/canasta/player.ex	/^  def deploy_red_three(player, index) do$/;"	f
 deps	mix.exs	/^  defp deps do$/;"	f
-detects if the player does not have a red three	test/backend_player_test.exs	/^    test "detects if the player does not have a red three", state do$/;"	t
-detects if the player has a red three	test/backend_player_test.exs	/^    test "detects if the player has a red three", state do$/;"	t
-face cards	test/backend_card_test.exs	/^    test "face cards" do$/;"	t
-give a card to starting player	test/backend_game_test.exs	/^    test "give a card to starting player" do$/;"	t
-give_card	lib/backend/game.ex	/^  def give_card(%Canasta.Game{pile: [first_card | _] = pile} = game, player) do$/;"	f
-handle_red_three	lib/backend/game.ex	/^  def handle_red_three(game, player) do$/;"	f
-handles red threes	test/backend_game_test.exs	/^    test "handles red threes, puts them out and deals new card", state do$/;"	t
-has_red_three?	lib/backend/player.ex	/^  def has_red_three?(%Canasta.Player{hand: hand}) do$/;"	f
-is_red_three?	lib/backend/card.ex	/^  def is_red_three?(%Card{suit: suit, rank: rank}) do$/;"	f
-joker	test/backend_card_test.exs	/^    test "joker" do$/;"	t
-meld_score	lib/backend/meld.ex	/^  def meld_score(meld) do$/;"	f
-natural cards are natural	test/backend_card_test.exs	/^    test "natural cards are natural" do$/;"	t
-new_deck	lib/backend/card.ex	/^  def new_deck do$/;"	f
-play	lib/backend/game.ex	/^  def play(game, %{action: :draw}) do$/;"	f
-play	lib/backend/game.ex	/^  def play(game, %{action: :meld, melds: [meld | meld_tail]}) do$/;"	f
-play	lib/backend/game.ex	/^  def play(game, %{action: :meld, melds: [meld]}) do$/;"	f
-play	lib/backend/game.ex	/^  def play(game, %{action: :meld_inclusive, melds: [meld | meld_tail]}) do$/;"	f
-play	lib/backend/game.ex	/^  def play(game, %{action: :meld_inclusive, melds: [meld]}) do$/;"	f
-play	lib/backend/game.ex	/^  def play(game, %{action: :play_card, card: card}) do$/;"	f
+detects if the player does not have a red three	test/canasta_player_test.exs	/^    test "detects if the player does not have a red three", state do$/;"	t
+detects if the player has a red three	test/canasta_player_test.exs	/^    test "detects if the player has a red three", state do$/;"	t
+face cards	test/canasta_card_test.exs	/^    test "face cards" do$/;"	t
+give_card	lib/canasta/game.ex	/^  def give_card(%Canasta.Game{pile: [first_card | _] = pile} = game, player) do$/;"	f
+handle_red_three	lib/canasta/game.ex	/^  def handle_red_three(game, player) do$/;"	f
+handles red threes	test/canasta_game_test.exs	/^    test "handles red threes, puts them out and deals new card", state do$/;"	t
+has_red_three?	lib/canasta/player.ex	/^  def has_red_three?(%Canasta.Player{hand: hand}) do$/;"	f
+is_red_three?	lib/canasta/card.ex	/^  def is_red_three?(%Card{suit: suit, rank: rank}) do$/;"	f
+joker	test/canasta_card_test.exs	/^    test "joker" do$/;"	t
+meld_score	lib/canasta/meld.ex	/^  def meld_score(meld) do$/;"	f
+natural cards are natural	test/canasta_card_test.exs	/^    test "natural cards are natural" do$/;"	t
+new_deck	lib/canasta/card.ex	/^  def new_deck do$/;"	f
+play	lib/canasta/game.ex	/^  def play(game, %{action: :draw}) do$/;"	f
+play	lib/canasta/game.ex	/^  def play(game, %{action: :meld, melds: [meld | meld_tail]}) do$/;"	f
+play	lib/canasta/game.ex	/^  def play(game, %{action: :meld, melds: [meld]}) do$/;"	f
+play	lib/canasta/game.ex	/^  def play(game, %{action: :play_card, card: card}) do$/;"	f
 project	mix.exs	/^  def project do$/;"	f
-properly puts the red three in the array and removes from hand	test/backend_player_test.exs	/^    test "properly puts the red three in the array and removes from hand", state do$/;"	t
-put card on table	test/backend_game_test.exs	/^    test "put card on table" do$/;"	t
-put_first_card	lib/backend/game.ex	/^  def put_first_card(%Canasta.Game{pile: [first_card | _] = pile} = game) do$/;"	f
-puts the first card down if natural	test/backend_game_test.exs	/^    test "puts the first card down if natural", state do$/;"	t
-red threes	test/backend_card_test.exs	/^    test "red threes" do$/;"	t
-remove one card from pile	test/backend_game_test.exs	/^    test "remove one card from pile" do$/;"	t
-removed one card from pile	test/backend_game_test.exs	/^    test "removed one card from pile", state do$/;"	t
-shuffles if wild	test/backend_game_test.exs	/^    test "shuffles if wild", state do$/;"	t
-start	lib/backend/game.ex	/^  def start(game) do$/;"	f
-valid?	lib/backend/card.ex	/^  def valid?(card) do$/;"	f
-valid_rank?	lib/backend/card.ex	/^  def valid_rank?(%Canasta.Card{rank: rank}) when is_atom(rank) do$/;"	f
-valid_rank?	lib/backend/card.ex	/^  def valid_rank?(%Canasta.Card{rank: rank}) when is_integer(rank) do$/;"	f
-valid_rank?	lib/backend/card.ex	/^  def valid_rank?(_), do: {:error, "Rank must be an atom or integer."}$/;"	f
-valid_suit?	lib/backend/card.ex	/^  def valid_suit?(%Canasta.Card{suit: suit}) when is_atom(suit) do$/;"	f
-valid_suit?	lib/backend/card.ex	/^  def valid_suit?(_), do: {:error, "Suit must be an atom."}$/;"	f
-validate_number_of_cards	lib/backend/meld.ex	/^  defp validate_number_of_cards(cards) do$/;"	f
-validate_number_of_cards	test/backend_meld_test.exs	/^    test "validate_number_of_cards\/1", state do$/;"	t
-validate_purity	lib/backend/meld.ex	/^  defp validate_purity(cards, final_round) do$/;"	f
-validate_purity	test/backend_meld_test.exs	/^    test "validate_purity\/1", state do$/;"	t
-validate_ratio	lib/backend/meld.ex	/^  defp validate_ratio(cards, final_round) do$/;"	f
-validate_ratio	test/backend_meld_test.exs	/^    test "validate_ratio\/2", state do$/;"	t
-validates dirty	test/backend_meld_test.exs	/^    test "validates dirty", state do$/;"	t
-validates invalid card	test/backend_card_test.exs	/^    test "validates invalid card" do$/;"	t
-validates invalid card only rank	test/backend_card_test.exs	/^    test "validates invalid card only rank" do$/;"	t
-validates invalid card only suit	test/backend_card_test.exs	/^    test "validates invalid card only suit" do$/;"	t
-validates invalid rank atom	test/backend_card_test.exs	/^    test "validates invalid rank atom" do$/;"	t
-validates invalid rank integer	test/backend_card_test.exs	/^    test "validates invalid rank integer" do$/;"	t
-validates invalid rank invalid type	test/backend_card_test.exs	/^    test "validates invalid rank invalid type" do$/;"	t
-validates invalid suit atom	test/backend_card_test.exs	/^    test "validates invalid suit atom" do$/;"	t
-validates invalid suit invalid type	test/backend_card_test.exs	/^    test "validates invalid suit invalid type" do$/;"	t
-validates natural	test/backend_meld_test.exs	/^    test "validates natural", state do$/;"	t
-validates valid card	test/backend_card_test.exs	/^    test "validates valid card" do$/;"	t
-validates valid rank atom	test/backend_card_test.exs	/^    test "validates valid rank atom" do$/;"	t
-validates valid rank integer	test/backend_card_test.exs	/^    test "validates valid rank integer" do$/;"	t
-validates valid suit	test/backend_card_test.exs	/^    test "validates valid suit" do$/;"	t
-value	lib/backend/card.ex	/^  def value(%Card{suit: suit, rank: rank}) do$/;"	f
-wild cards are wild	test/backend_card_test.exs	/^    test "wild cards are wild" do$/;"	t
-wild_cards	lib/backend/card.ex	/^  defp wild_cards(false) do$/;"	f
-wild_cards	lib/backend/card.ex	/^  defp wild_cards(true) do$/;"	f
+properly puts the red three in the array and removes from hand	test/canasta_player_test.exs	/^    test "properly puts the red three in the array and removes from hand", state do$/;"	t
+put card on table	test/canasta_game_test.exs	/^    test "put card on table" do$/;"	t
+put_first_card	lib/canasta/game.ex	/^  def put_first_card(%Canasta.Game{pile: [first_card | _] = pile} = game) do$/;"	f
+puts the first card down if natural	test/canasta_game_test.exs	/^    test "puts the first card down if natural", state do$/;"	t
+red threes	test/canasta_card_test.exs	/^    test "red threes" do$/;"	t
+remove one card from pile	test/canasta_game_test.exs	/^    test "remove one card from pile" do$/;"	t
+removed one card from pile	test/canasta_game_test.exs	/^    test "removed one card from pile", state do$/;"	t
+sets the pulled state to true and prevents further pulls	test/canasta_game_test.exs	/^    test "sets the pulled state to true and prevents further pulls", state do$/;"	t
+shuffles if wild	test/canasta_game_test.exs	/^    test "shuffles if wild", state do$/;"	t
+start	lib/canasta/game.ex	/^  def start(game) do$/;"	f
+the player whos turn it is will receive a card	test/canasta_game_test.exs	/^    test "the player whos turn it is will receive a card", state do$/;"	t
+valid?	lib/canasta/card.ex	/^  def valid?(card) do$/;"	f
+valid_rank?	lib/canasta/card.ex	/^  def valid_rank?(%Canasta.Card{rank: rank}) when is_atom(rank) do$/;"	f
+valid_rank?	lib/canasta/card.ex	/^  def valid_rank?(%Canasta.Card{rank: rank}) when is_integer(rank) do$/;"	f
+valid_rank?	lib/canasta/card.ex	/^  def valid_rank?(_), do: {:error, "Rank must be an atom or integer."}$/;"	f
+valid_suit?	lib/canasta/card.ex	/^  def valid_suit?(%Canasta.Card{suit: suit}) when is_atom(suit) do$/;"	f
+valid_suit?	lib/canasta/card.ex	/^  def valid_suit?(_), do: {:error, "Suit must be an atom."}$/;"	f
+validate_number_of_cards	lib/canasta/meld.ex	/^  defp validate_number_of_cards(cards) do$/;"	f
+validate_number_of_cards	test/canasta_meld_test.exs	/^    test "validate_number_of_cards\/1", state do$/;"	t
+validate_purity	lib/canasta/meld.ex	/^  defp validate_purity(cards, final_round) do$/;"	f
+validate_purity	test/canasta_meld_test.exs	/^    test "validate_purity\/1", state do$/;"	t
+validate_ratio	lib/canasta/meld.ex	/^  defp validate_ratio(cards, final_round) do$/;"	f
+validate_ratio	test/canasta_meld_test.exs	/^    test "validate_ratio\/2", state do$/;"	t
+validates dirty	test/canasta_meld_test.exs	/^    test "validates dirty", state do$/;"	t
+validates invalid card	test/canasta_card_test.exs	/^    test "validates invalid card" do$/;"	t
+validates invalid card only rank	test/canasta_card_test.exs	/^    test "validates invalid card only rank" do$/;"	t
+validates invalid card only suit	test/canasta_card_test.exs	/^    test "validates invalid card only suit" do$/;"	t
+validates invalid rank atom	test/canasta_card_test.exs	/^    test "validates invalid rank atom" do$/;"	t
+validates invalid rank integer	test/canasta_card_test.exs	/^    test "validates invalid rank integer" do$/;"	t
+validates invalid rank invalid type	test/canasta_card_test.exs	/^    test "validates invalid rank invalid type" do$/;"	t
+validates invalid suit atom	test/canasta_card_test.exs	/^    test "validates invalid suit atom" do$/;"	t
+validates invalid suit invalid type	test/canasta_card_test.exs	/^    test "validates invalid suit invalid type" do$/;"	t
+validates natural	test/canasta_meld_test.exs	/^    test "validates natural", state do$/;"	t
+validates valid card	test/canasta_card_test.exs	/^    test "validates valid card" do$/;"	t
+validates valid rank atom	test/canasta_card_test.exs	/^    test "validates valid rank atom" do$/;"	t
+validates valid rank integer	test/canasta_card_test.exs	/^    test "validates valid rank integer" do$/;"	t
+validates valid suit	test/canasta_card_test.exs	/^    test "validates valid suit" do$/;"	t
+value	lib/canasta/card.ex	/^  def value(%Card{suit: suit, rank: rank}) do$/;"	f
+wild cards are wild	test/canasta_card_test.exs	/^    test "wild cards are wild" do$/;"	t
+wild_cards	lib/canasta/card.ex	/^  defp wild_cards(false) do$/;"	f
+wild_cards	lib/canasta/card.ex	/^  defp wild_cards(true) do$/;"	f

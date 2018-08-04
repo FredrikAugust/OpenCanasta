@@ -123,6 +123,22 @@ defmodule CanastaGameTest do
     end
   end
 
+  describe "deal_card/1" do
+    test "deals a card to whomevers turn it is" do
+      game = Canasta.Game.create()
+      dealed = game |> Canasta.Game.deal_card
+
+      assert length(dealed.player_one.hand) > length(game.player_one.hand)
+    end
+
+    test "flips the pulled state" do
+      game = Canasta.Game.create()
+      dealed = game |> Canasta.Game.deal_card
+
+      assert dealed.pulled == true
+    end
+  end
+
   describe "play/2 -- draw" do
     setup do
       {:ok, %{game: Canasta.Game.create(), action: %{action: :draw}}}

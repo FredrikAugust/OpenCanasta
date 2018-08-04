@@ -55,9 +55,13 @@ defmodule Canasta.Game do
   Draft a card; gives a card to the player whose turn it is and prevents them
   from drafting another card.
   """
-  def play(game, %{action: :draw}) do
+  def play(%{pulled: false} = game, %{action: :draw}) do
     game
     |> deal_card
+  end
+
+  def play(%{pulled: true} = game, _) do
+    {:already_pulled, game}
   end
 
   def play(game, %{action: :play_card, card: card}) do
@@ -88,14 +92,10 @@ defmodule Canasta.Game do
   Give a card to the player whos turn it is and alter the current player.
   Doesn't allow players to draft two cards.
   """
-  def deal_card(%Canasta.Game{pulled: false, player_turn: player_turn} = game) do
+  def deal_card(%Canasta.Game{player_turn: player_turn} = game) do
     game
     |> give_card(player_turn)
     |> Map.update!(:pulled, &(!&1))
-  end
-
-  def deal_card(%Canasta.Game{pulled: true} = game) do
-    {:already_pulled, game}
   end
 
   @doc """
