@@ -1,4 +1,5 @@
 defmodule Canasta.Game do
+  require Logger
   @moduledoc """
   Represents the game in its whole. This is mainly what the API will interact
   with.
@@ -20,6 +21,7 @@ defmodule Canasta.Game do
   handling red threes), and putting a card on the table.
   """
   def create do
+    Logger.debug "Creating a new game"
     deck = Canasta.Card.new_deck()
 
     %Canasta.Game{
@@ -56,23 +58,28 @@ defmodule Canasta.Game do
   from drafting another card.
   """
   def play(%{pulled: false} = game, %{action: :draw}) do
+    Logger.debug "Drawing a card"
     game
     |> deal_card
   end
 
   def play(%{pulled: true} = game, _) do
+    Logger.warn "Trying to overdraw"
     {:already_pulled, game}
   end
 
   def play(game, %{action: :play_card, card: card}) do
+    Logger.debug "Playing card #{card.suit || "no suite"}|#{card.rank || "no rank"}"
     nil
   end
 
   def play(game, %{action: :meld, melds: [meld]}) do
+    Logger.debug "Creating meld with #{length(meld.cards)} cards"
     nil
   end
 
   def play(game, %{action: :meld, melds: [meld | meld_tail]}) do
+    Logger.debug "Creating meld with #{length(meld.cards)} cards"
     nil
   end
 
@@ -93,6 +100,7 @@ defmodule Canasta.Game do
   Doesn't allow players to draft two cards.
   """
   def deal_card(%Canasta.Game{player_turn: player_turn} = game) do
+    Logger.debug "Dealing card to #{player_turn}"
     game
     |> give_card(player_turn)
     |> Map.update!(:pulled, &(!&1))
@@ -128,6 +136,7 @@ defmodule Canasta.Game do
         game
 
       i ->
+        Logger.debug "#{player} has red three, handling now"
         game
         |> Map.update!(player, &Canasta.Player.deploy_red_three(&1, i))
         |> Canasta.Game.give_card(:player_one)
