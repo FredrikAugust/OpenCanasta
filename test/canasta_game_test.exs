@@ -131,7 +131,9 @@ defmodule CanastaGameTest do
     test "the player whos turn it is will receive a card", state do
       played_game = state.game |> Canasta.Game.play(state.action)
       assert length(played_game.player_one.hand) == 12
-      assert length(played_game.pile) + length(played_game.player_one.red_threes) + 1 == length(state.game.pile)
+
+      assert length(played_game.pile) + length(played_game.player_one.red_threes) + 1 ==
+               length(state.game.pile)
     end
 
     test "sets the pulled state to true and prevents further pulls", state do

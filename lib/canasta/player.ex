@@ -1,7 +1,7 @@
 defmodule Canasta.Player do
   @moduledoc """
   Represents a player in a game. Mostly used as an abstraction to simplify the
-  code in backend/lib/backend/game.ex.
+  code in canasta/lib/canasta/game.ex.
   """
 
   @enforce_keys [:hand, :table, :points, :red_threes]

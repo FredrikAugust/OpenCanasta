@@ -72,15 +72,6 @@ defmodule Canasta.Game do
     nil
   end
 
-  def play(game, %{action: :meld_inclusive, melds: [meld]}) do
-    nil
-  end
-
-  def play(game, %{action: :meld_inclusive, melds: [meld | meld_tail]}) do
-    # when you're taking the cards "on table"
-    nil
-  end
-
   @doc """
   Put the first card on the table, can not be a wild card. Will shuffle and try
   again if card is wild.
@@ -100,8 +91,9 @@ defmodule Canasta.Game do
   def deal_card(%Canasta.Game{pulled: false, player_turn: player_turn} = game) do
     game
     |> give_card(player_turn)
-    |> Map.update!(:pulled, &!&1)
+    |> Map.update!(:pulled, &(!&1))
   end
+
   def deal_card(%Canasta.Game{pulled: true} = game) do
     {:already_pulled, game}
   end
