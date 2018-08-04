@@ -126,14 +126,14 @@ defmodule CanastaGameTest do
   describe "deal_card/1" do
     test "deals a card to whomevers turn it is" do
       game = Canasta.Game.create()
-      dealed = game |> Canasta.Game.deal_card
+      dealed = game |> Canasta.Game.deal_card()
 
       assert length(dealed.player_one.hand) > length(game.player_one.hand)
     end
 
     test "flips the pulled state" do
       game = Canasta.Game.create()
-      dealed = game |> Canasta.Game.deal_card
+      dealed = game |> Canasta.Game.deal_card()
 
       assert dealed.pulled == true
     end

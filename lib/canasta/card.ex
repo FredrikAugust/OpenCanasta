@@ -13,6 +13,7 @@ defmodule Canasta.Card do
   Check if the suit is hearts, diamonds, clubs or spades.
   """
   def valid_suit?(%Canasta.Card{suit: nil, rank: :joker}), do: :ok
+
   def valid_suit?(%Canasta.Card{suit: suit}) when is_atom(suit) do
     if Enum.member?([:hearts, :diamonds, :clubs, :spades], suit) do
       :ok
@@ -56,7 +57,7 @@ defmodule Canasta.Card do
         suit_error
 
       {{_, suit_error}, {_, rank_error}} ->
-        Logger.warn "Invalid card #{card.suit || "no suit"}|#{card.rank || "no rank"}"
+        Logger.warn("Invalid card #{card.suit || "no suit"}|#{card.rank || "no rank"}")
         {:error, [suit_error, rank_error]}
 
       _ ->
@@ -109,7 +110,8 @@ defmodule Canasta.Card do
   Generates a new french deck (two decks) and shuffles it.
   """
   def new_deck do
-    Logger.debug "Creating a new deck"
+    Logger.debug("Creating a new deck")
+
     [
       %Card{suit: :hearts, rank: 2},
       %Card{suit: :diamonds, rank: 2},
