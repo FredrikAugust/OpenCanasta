@@ -72,11 +72,6 @@ defmodule CanastaGameTest do
       started = Canasta.Game.create()
       assert length(started.pile) <= 86
     end
-
-    test "give a card to starting player" do
-      started = Canasta.Game.create()
-      assert length(started.player_one.hand) == 12
-    end
   end
 
   describe "handle_red_threes/1" do
@@ -125,6 +120,23 @@ defmodule CanastaGameTest do
     test "removed one card from pile", state do
       putted = Canasta.Game.put_first_card(state.game)
       assert length(putted.pile) == length(state.game.pile) - 1
+    end
+  end
+
+  describe "play/2 -- draw" do
+    setup do
+      {:ok, %{game: Canasta.Game.create(), action: %{action: :draw}}}
+    end
+
+    test "the player whos turn it is will receive a card", state do
+      played_game = state.game |> Canasta.Game.play(state.action)
+      assert length(played_game.player_one.hand) == 12
+      assert length(played_game.pile) + length(played_game.player_one.red_threes) + 1 == length(state.game.pile)
+    end
+
+    test "sets the pulled state to true and prevents further pulls", state do
+      played_game = state.game |> Canasta.Game.play(state.action)
+      assert {:already_pulled, played_game} == Canasta.Game.play(played_game, state.action)
     end
   end
 end

@@ -4,30 +4,40 @@ defmodule Canasta.Game do
   with.
   """
 
+  @doc """
+  :player_one -- player one
+  :player_two -- player two
+  :pile -- the cards the players can draft from
+  :player_turn -- whose turn it is to play
+  :table -- what cards are put down on the table
+  :pulled -- whether or not the current player (player_turn) has pulled a card
+  """
   @enforce_keys [:player_one, :player_two, :pile, :player_turn]
-  defstruct [:player_one, :player_two, :pile, :player_turn, :table]
+  defstruct [:player_one, :player_two, :pile, :player_turn, :table, :pulled]
 
   @doc """
-  Creates a new game.
+  Creates a new game and starts it -- this means dealing cards (including
+  handling red threes), and putting a card on the table.
   """
   def create do
     deck = Canasta.Card.new_deck()
 
     %Canasta.Game{
       player_one: %Canasta.Player{
-        hand: Enum.slice(deck, 11..21),
-        table: [],
-        points: 0,
-        red_threes: []
-      },
-      player_two: %Canasta.Player{
         hand: Enum.slice(deck, 0..10),
         table: [],
         points: 0,
         red_threes: []
       },
+      player_two: %Canasta.Player{
+        hand: Enum.slice(deck, 11..21),
+        table: [],
+        points: 0,
+        red_threes: []
+      },
       pile: Enum.slice(deck, 22..-1),
-      player_turn: :player_one
+      player_turn: :player_one,
+      pulled: false
     }
     |> start
   end
@@ -39,23 +49,18 @@ defmodule Canasta.Game do
   def start(game) do
     game
     |> put_first_card()
-    |> give_card(game.player_turn)
   end
 
-  # TODO: implement play function. here we can overload the function to handle
-  # melding and normal playing
   @doc """
-  TODO: add documentation of play function
+  Draft a card; gives a card to the player whose turn it is and prevents them
+  from drafting another card.
   """
   def play(game, %{action: :draw}) do
-    nil
+    game
+    |> deal_card
   end
 
   def play(game, %{action: :play_card, card: card}) do
-    nil
-  end
-
-  def play(game, %{action: :meld, melds: [meld | meld_tail]}) do
     nil
   end
 
@@ -63,12 +68,16 @@ defmodule Canasta.Game do
     nil
   end
 
-  def play(game, %{action: :meld_inclusive, melds: [meld | meld_tail]}) do
-    # when you're taking the cards "on table"
+  def play(game, %{action: :meld, melds: [meld | meld_tail]}) do
     nil
   end
 
   def play(game, %{action: :meld_inclusive, melds: [meld]}) do
+    nil
+  end
+
+  def play(game, %{action: :meld_inclusive, melds: [meld | meld_tail]}) do
+    # when you're taking the cards "on table"
     nil
   end
 
@@ -82,6 +91,19 @@ defmodule Canasta.Game do
     else
       %{game | table: [first_card], pile: Enum.slice(pile, 1..-1)}
     end
+  end
+
+  @doc """
+  Give a card to the player whos turn it is and alter the current player.
+  Doesn't allow players to draft two cards.
+  """
+  def deal_card(%Canasta.Game{pulled: false, player_turn: player_turn} = game) do
+    game
+    |> give_card(player_turn)
+    |> Map.update!(:pulled, &!&1)
+  end
+  def deal_card(%Canasta.Game{pulled: true} = game) do
+    {:already_pulled, game}
   end
 
   @doc """
