@@ -1,0 +1,4 @@
+TODO
+
+- update all structs to use default values instead of enforcing keys and settin
+  them in the create functions
