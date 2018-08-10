@@ -5,7 +5,7 @@ defmodule Canasta.MixProject do
     [
       app: :canasta,
       version: "0.1.0",
-      elixir: "~> 1.6",
+      elixir: "~> 1.7",
       start_permanent: Mix.env() == :prod,
       source_url: "https://github.com/fredrikaugust/canasta",
       deps: deps(),
@@ -20,7 +20,7 @@ defmodule Canasta.MixProject do
     ]
   end
 
-  defp deps, do: []
+  defp deps, do: [{:ex_doc, "~> 0.19", only: :dev, runtime: false}]
   defp description, do: "This library provides a simple interface to work with/play the card game canasta."
   defp package do
     [
