@@ -157,4 +157,31 @@ defmodule CanastaGameTest do
       assert {:already_pulled, played_game} == Canasta.Game.play(played_game, state.action)
     end
   end
+
+  describe "play/2 -- play_card" do
+    setup do
+      game = %Canasta.Game{player_one: player_one} = Canasta.Game.create()
+      {:ok, %{game: game, action: %{action: :play_card, card: hd(player_one.hand)}}}
+    end
+
+    test "removes a card from the hand", state do
+      played_game = Canasta.Game.play(state.game, state.action)
+      assert length(played_game.player_one.hand) == 11
+    end
+
+    test "adds the card to the table", state do
+      played_game = Canasta.Game.play(state.game, state.action)
+      assert length(played_game.table) == 2
+    end
+
+    test "can't play card you don't have", state do
+      played_game = Canasta.Game.play(state.game, %{state.action | card: %Canasta.Card{suit: :no, rank: 2}})
+      assert played_game == {:invalid_card, state.game}
+    end
+
+    test "alters turn", state do
+      played_game = Canasta.Game.play(state.game, state.action)
+      assert length(played_game.player_turn) == :player_two
+    end
+  end
 end
