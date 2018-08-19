@@ -91,28 +91,6 @@ defmodule Canasta.Game do
     end
   end
 
-  defp remove_card_from_hand(game, card) do
-    Map.update!(game, game.player_turn, fn player ->
-      %Canasta.Player{player | hand: player.hand -- [card]}
-    end)
-  end
-
-  defp put_card_on_table(game, card) do
-    %Canasta.Game{game | table: [game.table] ++ [card]}
-  end
-
-  defp switch_player_turn(game) do
-    Map.update!(game, :player_turn, fn player ->
-      case player do
-        :player_one ->
-          :player_two
-
-        :player_two ->
-          :player_one
-      end
-    end)
-  end
-
   def play(game, %{action: :meld, melds: [meld]}) do
     Logger.debug("Creating meld with #{length(meld.cards)} cards")
     nil
@@ -190,5 +168,27 @@ defmodule Canasta.Game do
     game
     |> Map.get(game.player_turn)
     |> Map.get(:hand)
+  end
+
+  defp remove_card_from_hand(game, card) do
+    Map.update!(game, game.player_turn, fn player ->
+      %Canasta.Player{player | hand: player.hand -- [card]}
+    end)
+  end
+
+  defp put_card_on_table(game, card) do
+    %Canasta.Game{game | table: [game.table] ++ [card]}
+  end
+
+  defp switch_player_turn(game) do
+    Map.update!(game, :player_turn, fn player ->
+      case player do
+        :player_one ->
+          :player_two
+
+        :player_two ->
+          :player_one
+      end
+    end)
   end
 end
