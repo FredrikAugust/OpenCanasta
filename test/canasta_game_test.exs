@@ -175,7 +175,9 @@ defmodule CanastaGameTest do
     end
 
     test "can't play card you don't have", state do
-      played_game = Canasta.Game.play(state.game, %{state.action | card: %Canasta.Card{suit: :no, rank: 2}})
+      played_game =
+        Canasta.Game.play(state.game, %{state.action | card: %Canasta.Card{suit: :no, rank: 2}})
+
       assert played_game == {:invalid_card, state.game}
     end
 

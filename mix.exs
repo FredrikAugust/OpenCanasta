@@ -21,7 +21,10 @@ defmodule Canasta.MixProject do
   end
 
   defp deps, do: [{:ex_doc, "~> 0.19", only: :dev, runtime: false}]
-  defp description, do: "This library provides a simple interface to work with/play the card game canasta."
+
+  defp description,
+    do: "This library provides a simple interface to work with/play the card game canasta."
+
   defp package do
     [
       licenses: ["GPL-3.0"],
