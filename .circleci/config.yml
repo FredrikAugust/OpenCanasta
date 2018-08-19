@@ -5,5 +5,5 @@ jobs:
       - image: circleci/elixir:1.6
     steps:
       - checkout
-      - run: mix deps.get mix local.hex --force
+      - run: mix local.hex --force
       - run: mix test
