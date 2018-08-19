@@ -65,14 +65,52 @@ defmodule Canasta.Game do
     |> deal_card
   end
 
-  def play(%{pulled: true} = game, _) do
+  def play(%{pulled: true} = game, %{action: :draw}) do
     Logger.warn("Trying to overdraw")
     {:already_pulled, game}
   end
 
   def play(game, %{action: :play_card, card: card}) do
     Logger.debug("Playing card #{card.suit || "no suite"}|#{card.rank || "no rank"}")
-    nil
+
+    case game.pulled do
+      true ->
+        case card in current_player_hand(game) do
+          true ->
+            game
+            |> remove_card_from_hand(card)
+            |> put_card_on_table(card)
+            |> switch_player_turn
+
+          false ->
+            {:invalid_card, game}
+        end
+
+      false ->
+        {:not_pulled, game}
+    end
+  end
+
+  defp remove_card_from_hand(game, card) do
+    Map.update!(game, game.player_turn, fn player ->
+      %Canasta.Player{player | hand: player.hand -- [card]}
+    end)
+  end
+
+  defp put_card_on_table(game, card) do
+    %Canasta.Game{game | table: [game.table] ++ [card]}
+  end
+
+  defp switch_player_turn(game) do
+    Map.update!(game, :player_turn, fn player ->
+      case player do
+        :player_one ->
+          :player_two
+
+        :player_two ->
+          :player_one
+      end
+    end)
   end
 
   def play(game, %{action: :meld, melds: [meld]}) do
@@ -98,8 +136,8 @@ defmodule Canasta.Game do
   end
 
   @doc """
-  Give a card to the player whos turn it is and alter the current player.
-  Doesn't allow players to draft two cards.
+  Give a card to the player whos turn it is and alter the current player pulled
+  state.  Doesn't allow players to draft two cards.
   """
   def deal_card(%Canasta.Game{player_turn: player_turn} = game) do
     Logger.debug("Dealing card to #{player_turn}")
@@ -146,5 +184,11 @@ defmodule Canasta.Game do
         |> Canasta.Game.give_card(:player_one)
         |> handle_red_three(player)
     end
+  end
+
+  defp current_player_hand(game) do
+    game
+    |> Map.get(game.player_turn)
+    |> Map.get(:hand)
   end
 end

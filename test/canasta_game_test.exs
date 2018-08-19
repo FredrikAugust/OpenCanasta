@@ -161,12 +161,17 @@ defmodule CanastaGameTest do
   describe "play/2 -- play_card" do
     setup do
       game = %Canasta.Game{player_one: player_one} = Canasta.Game.create()
-      {:ok, %{game: game, action: %{action: :play_card, card: hd(player_one.hand)}}}
+
+      {:ok,
+       %{
+         game: %Canasta.Game{game | pulled: true},
+         action: %{action: :play_card, card: hd(player_one.hand)}
+       }}
     end
 
     test "removes a card from the hand", state do
       played_game = Canasta.Game.play(state.game, state.action)
-      assert length(played_game.player_one.hand) == 11
+      assert length(played_game.player_one.hand) == 10
     end
 
     test "adds the card to the table", state do
@@ -183,7 +188,12 @@ defmodule CanastaGameTest do
 
     test "alters turn", state do
       played_game = Canasta.Game.play(state.game, state.action)
-      assert length(played_game.player_turn) == :player_two
+      assert played_game.player_turn == :player_two
+    end
+
+    test "requires user to pull first", state do
+      unpulled_game = %Canasta.Game{state.game | pulled: false}
+      played_game = Canasta.Game.play(unpulled_game, state.action)
     end
   end
 end
